@@ -1,0 +1,44 @@
+{
+parserClass="com.jmcbutter.shopifyliquid.parser.ShopifyLiquidParser"
+psiClassPrefix="ShopifyLiquid"
+psiImplClassSuffix="Impl"
+psiPackage="com.jmcbutter.shopifyliquid.psi"
+psiImplPackage="com.jmcbutter.shopifyliquid.psi.impl"
+elementTypeHolderClass="com.jmcbutter.shopifyliquid.psi.ShopifyLiquidTypes"
+elementTypeClass="com.jmcbutter.shopifyliquid.psi.ShopifyLiquidElementType"
+tokenTypeClass="com.jmcbutter.shopifyliquid.psi.ShopifyLiquidTokenType"
+
+tokens = [
+  COMMENT_START=    "{#"
+  COMMENT_END=      "#}"
+  COMMENT_CONTENT=  "regexp:[^#}]*"
+  OUTPUT_START=     "{{"
+  OUTPUT_END=       "}}"
+  TAG_START=        "{%"
+  TAG_END=          "%}"
+  WHITE_SPACE=      "regexp:\s+"
+  TEXT=             "regexp:[^{]+"
+  CONTENT=          "regexp:[^}%#]+"
+]
+
+}
+
+liquidFile ::= item*
+
+private item ::= COMMENT | statement  | TEXT
+
+statement ::= output_statement | tag_statement
+
+COMMENT ::= COMMENT_START COMMENT_CONTENT? COMMENT_END
+
+output_statement ::= OUTPUT_START content? OUTPUT_END {
+ extends="statement"
+ implements="com.jmcbutter.shopifyliquid.psi.ShopifyLiquidStatement"
+}
+
+tag_statement ::= TAG_START content? TAG_END {
+ extends="statement"
+ implements="com.jmcbutter.shopifyliquid.psi.ShopifyLiquidStatement"
+}
+
+private content ::= CONTENT

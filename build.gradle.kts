@@ -18,9 +18,9 @@ repositories {
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
 dependencies {
     intellijPlatform {
-        create("IU", "2024.1")
+        create("IU", "2025.1")
         testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
-        intellijIdeaUltimate("2024.1")
+        intellijIdeaUltimate("2025.1")
         // Add necessary plugin dependencies for compilation here, example:
         // bundledPlugin("com.intellij.java")
     }
@@ -37,6 +37,12 @@ intellijPlatform {
         changeNotes = """
       Initial version
     """.trimIndent()
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDirs("src/main/gen")
     }
 }
 

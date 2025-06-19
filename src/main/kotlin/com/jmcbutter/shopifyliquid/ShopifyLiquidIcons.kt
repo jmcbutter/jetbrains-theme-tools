@@ -2,7 +2,7 @@ package com.jmcbutter.shopifyliquid
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
-class LiquidIcons {
+class ShopifyLiquidIcons {
     @JvmField
-    val FILE: Icon = IconLoader.getIcon("/icons/liquid.svg", LiquidIcons::class.java)
+    val FILE: Icon = IconLoader.getIcon("/icons/liquid.svg", ShopifyLiquidIcons::class.java)
 }

@@ -12,18 +12,24 @@ import com.intellij.psi.TokenType;
 %unicode
 %function advance
 %type IElementType
-%eof{ return; %eof}
+%eof{
+  return;
+%eof}
+
+%state IN_COMMENT
 
 CRLF=\R
 WHITE_SPACE=[\ \n\t\f]
-COMMENT_START="\{# "
-COMMENT_END=" #\}"
-OUTPUT_START="\{\{"
-OUTPUT_END=" \}\}"
-TAG_START="\{%"
-TAG_END=" %\}"
+COMMENT_START=\{#[ ]?
+OUTPUT_START=\{\{[ ]?
+TAG_START=\{%[ ]?
+
+COMMENT_END=[ ]?#\}
+OUTPUT_END=[ ]?\}\}
+TAG_END=[ ]?%\}
 
 %%
+
 <YYINITIAL> {
   {WHITE_SPACE}+          { return TokenType.WHITE_SPACE; }
   {COMMENT_START}         { yybegin(IN_COMMENT); return LiquidTypes.COMMENT_START; }
@@ -37,5 +43,5 @@ TAG_END=" %\}"
 
 <IN_COMMENT> {
   {COMMENT_END}           { yybegin(YYINITIAL); return LiquidTypes.COMMENT_END; }
-  [^{#}]*                 { return LiquidTypes.COMMENT_CONTENT; }
+  [^#\}]+                { return LiquidTypes.COMMENT_CONTENT; }
 }

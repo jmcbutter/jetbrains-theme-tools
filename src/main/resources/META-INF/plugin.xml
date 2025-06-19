@@ -25,7 +25,9 @@
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
-    <fileType name="Liquid File" implementationClass="com.jmcbutter.shopifyliquid.LiquidFileType"
-              fieldName="INSTANCE" language="Liquid" extensions="liquid" />
+    <fileType name="Shopify Liquid File" implementationClass="com.jmcbutter.shopifyliquid.ShopifyLiquidFileType"
+              fieldName="INSTANCE" language="ShopifyLiquid" extensions="liquid" />
+    <lang.parserDefinition language="ShopifyLiquid" implementationClass="com.jmcbutter.shopifyliquid.ShopifyLiquidParserDefinition" />
+    <lang.syntaxHighlighterFactory language="ShopifyLiquid" implementationClass="com.jmcbutter.shopifyliquid.ShopifyLiquidSyntaxHighlighterFactory" />
   </extensions>
 </idea-plugin>
